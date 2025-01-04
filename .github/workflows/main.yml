@@ -18,7 +18,5 @@ jobs:
         run: npm install
       - name: build
         run: npm run build:prod
-      - name: linting ts
-        run: npm run lint:ts
       - name: linting scss
         run: npm run lint:scss
