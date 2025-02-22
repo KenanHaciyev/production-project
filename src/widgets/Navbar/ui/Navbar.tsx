@@ -1,17 +1,25 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { AppLink, AppLinkTheme } from 'shared/ui/AppLink/AppLink';
-import { ThemeSwitcher } from 'shared/ui/ThemeSwitcher/ui/ThemeSwitcher';
+import { Modal } from 'shared/ui/Modal/Modal';
+import { Button, ButtonTheme } from 'shared/ui/Button/button';
+import { useCallback, useState } from 'react';
 import cls from './Navbar.module.scss';
 
 interface NavbarProps {
     className?: string
 }
 
-export const Navbar = ({ className }: NavbarProps) => (
-    <div className={classNames(cls.Navbar, {}, [className])}>
-        <div className={cls.links}>
-            <AppLink theme={AppLinkTheme.SECONDARY} className={cls.mainLink} to="/">Main</AppLink>
-            <AppLink theme={AppLinkTheme.SECONDARY} to="/about">About</AppLink>
+export const Navbar = ({ className }: NavbarProps) => {
+    const [isAuthModal, setIsAuthModal] = useState(false);
+    const onToggleModal = useCallback(() => setIsAuthModal((prevState) => !prevState), []);
+
+    return (
+        <div className={classNames(cls.Navbar, {}, [className])}>
+            <Button className={cls.links} theme={ButtonTheme.CLEAR_INVERTED} onClick={onToggleModal}>
+                Войти
+            </Button>
+            <Modal isOpen={isAuthModal} onClose={onToggleModal}>
+                Lorem ipsum dolor sit amet.
+            </Modal>
         </div>
-    </div>
-);
+    );
+};
